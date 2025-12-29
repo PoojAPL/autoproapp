@@ -1,2 +1,2 @@
 # autoproapp
-Backend REST API project ( NDA safe)
+CMS and Backend REST API project ( NDA safe)
