@@ -1,0 +1,61 @@
+<div id="right-container">
+  <div class="site-form form-inline remotePage">
+    <div class="row">
+      <div class="col-sm-24">
+        <div class="form-group addCodeSeries">
+        <a href="<?php echo adm_base_url();?>/autopropad/add_announcement" class="btn btn-danger">Add New Announcement</a>   
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-24">
+      <section class="white-box">
+        <?php if($this->session->flashdata('message_display')){?>
+        <div class="alert alert-info"><?php echo $this->session->flashdata('message_display');?></div>
+        <?php } ?>
+        <div class="site-form" method="post">
+          <div class="table-responsive chips_data" style="overflow:visible">
+            <table class="table table-bordered  table-data mar0 tab-con">
+              <thead>
+                <tr>
+                  <th>Date & Time </th>
+                  <th>Description</th>
+                  <th>Submitted By</th>
+                  <th style="width:137px">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <?php foreach($results as $value){?>
+                <tr>
+                  <td>
+                  <span class="td_data"><?php echo $value['Submitted'];?></span> <span class="glyphicon glyphicon-pencil edit_announcements" data-val="<?php echo $value['Submitted'];?>" data-id="<?php echo $value['id'];?>" data-col="Submitted"></span><div class="get_column_data"></div>
+                  </td>
+                  <td><div class="product-holder" style="width: auto;">
+                  <span class="td_data"><?php echo $value['Description'];?></span> <span class="glyphicon glyphicon-pencil edit_announcements" data-val="<?php echo $value['Description'];?>" data-id="<?php echo $value['id'];?>" data-col="Description"></span><div class="get_column_data"></div>
+                  </div>
+                  </td>
+                  <td>
+                  	<span class="td_data"><?php echo $value['Submitted_by'];?></span>
+                  </td>
+                  <td>
+                  <a href="javascript:void(0)"  class="btn btn-success">Edit</a>
+                  <a href="javascript:void(0)" onclick="DeleteFunction(<?php echo $value['id'];?>, '<?php echo adm_base_url();?>/autopropad/delete_annoucement/')" type="button" class="btn btn-danger">Delete</a></td>
+                </tr>
+                <?php } ?>
+              </tbody>
+            </table>
+             <nav class="site-pg">
+                <ul class="pagination">               
+                <?php foreach ($links as $link) {
+                        echo '<li>'. $link.'</li>';
+                } ?>	
+               </ul>
+     	  </nav>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+<!-- right container start here --> 

@@ -1,0 +1,168 @@
+<?php $user_data = $this->session->userdata('login_user');
+$user_username = $user_data['username']; 
+$outputs1 = $this->session->userdata('login_firebase_user');
+if($id != ""){
+    $get_user_submission_feedback = get_user_submission_feedback($id);
+    $vehicle = $get_user_submission_feedback[0]['vehicle'].'__'.$get_user_submission_feedback[0]['Vehicle_UUID'];
+    $User_Email = $get_user_submission_feedback[0]['User_Email'];
+    $title = $get_user_submission_feedback[0]['title'];
+    $content = $get_user_submission_feedback[0]['content'];
+    $Images = $get_user_submission_feedback[0]['Images'];
+  }else{
+    $vehicle = '';
+    $User_Email = 2;
+    $title = '';
+    $content = '';
+    $Images = '';
+}?>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-24 col-md-24">                         
+    <section class="innerUserlogin white-box">
+    <?php if($this->session->flashdata('message_display')){?>
+  <div class="alert alert-info"><?php echo $this->session->flashdata('message_display');?></div>
+  <?php } ?>
+  <form class="site-form" method ="post" id="AddMethods" action="<?php echo adm_base_url();?>/save_avatars">
+  <input type="hidden" name="<?php echo $this->security->get_csrf_token_name();?>" value="<?php echo $this->security->get_csrf_hash();?>" />
+    <!--<h2 class="titleheadng">Add Model</h2>-->
+      <input type="hidden" id="i_email" value="<?php echo $getUsersInfo[0]['email'];?>" />
+      <input type="hidden" id="i_password" value="<?php echo $outputs1['password'];?>" />
+      <input type="hidden" id="UUID" name="UUID" value="<?php echo gen_uuid();?>" /> 
+              
+        <div class="row">
+      <div class="col-sm-4">
+        <div class="labelcol">
+          <label class="control-label">Image Path</label>
+        </div>
+      </div>
+      <div class="col-sm-10">
+        <div class="inputcol">
+         <input type="text" class="form-control" name="Image_path[]" id="someImageTagID" readonly="readonly" value="<?php echo $Images;?>">
+        </div>
+      </div>
+      <div class="col-sm-3" style="width: 11.9%;">
+              <span id="fileselector">
+                <label class="btn btn-info" for="upload-file-selector" style="margin-top: 15px;">
+                    <input id="photo" type="file" name="filename" onchange="imageUpload()" >
+                </label>
+            </span>
+          </div>         
+    </div>
+    <div class="moreImageHolder"></div>
+    <!-- <div class="pull-right"><button class="btn btn-success addMoreImages" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add More </button></div> -->
+    <div class="clearfix"></div>
+    <div class="row">
+      <div class=" col-sm-4 ">
+        <div class="labelcol">
+          <label class="control-label">Sort Order</label>
+        </div>
+      </div>
+      <div class="col-sm-10">
+        <div class="inputcol">
+           <input type="number" name="Sort_Order" class="form-control">
+        </div>
+      </div>
+    </div>     
+     <hr>
+    <div class="row">
+   		 <div class=" col-sm-4 ">
+        <div class="labelcol">
+          <label class="control-label"></label>
+        </div>
+      </div>
+    <div class="col-md-12">
+        <button type="submit" class="btn btn-success" name="post">Submit</button>
+        <a href="<?php echo adm_base_url();?>/avatars" class="btn btn-danger">Cancel</a>
+    </div>   
+  </div>
+   </form>
+  </div>
+  </div>
+</div>
+<input type="hidden" id="getError" />
+<script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+<script src="<?php echo asset_url(); ?>admin/js/md5.js"></script>
+<script type="text/javascript">
+  var bse_url = "/";
+  var config = {
+    apiKey: "AIzaSyA1kkLsRv7v_tTafk5aCQWnXeWV_plC5_k",
+    authDomain: "autoproapp2017.firebaseapp.com",
+    databaseURL: "https://autoproapp2017.firebaseio.com",
+    projectId: "autoproapp2017",
+    storageBucket: "autoproapp2017.appspot.com",
+    messagingSenderId: "988140303282"
+  };
+
+  // var config = {
+  //   apiKey: "AIzaSyAOGEGaxRqauTKn14rrg7NsfSpgAgqmWQ4",
+  //   authDomain: "american-key.firebaseapp.com",
+  //   databaseURL: "https://american-key.firebaseio.com",
+  //   storageBucket: "american-key.appspot.com",
+  //   messagingSenderId: "699615089846"
+  // };
+  firebase.initializeApp(config);
+  const auth = firebase.auth();
+  var uuid = document.getElementById('UUID').value; 
+  const ref = firebase.storage().ref('/avtars-images/'+uuid+'');
+  const loginEmail = document.getElementById('i_email');
+  const loginPassword = document.getElementById('i_password');
+  var uuid = document.getElementById('UUID').value; 
+  function imageUpload(){
+    var error = document.getElementById('getError').value;
+    if(error === ""){
+          document.getElementById("loader").className = "";
+          const i_email = loginEmail.value;
+          const i_password = loginPassword.value;
+          const auth = firebase.auth();
+          const encrypt_passw = calcMD5(i_password);    
+          const encrypt_64 = Base64.encode(encrypt_passw);
+          // Sign In
+          const returnPromise = auth.signInWithEmailAndPassword(i_email, encrypt_64);
+          returnPromise.catch( e =>  document.getElementById('getError').value = e.message);  
+          const file = document.querySelector('#photo').files[0]
+          const name = (+new Date()) + '-' + file.name;
+          const metadata = {
+            contentType: file.type
+          };
+          const task = ref.child(name).put(file, metadata);
+          task.then((snapshot) => {
+            const url = snapshot.downloadURL;
+            //console.log(url);
+            document.querySelector('#someImageTagID').value = url;
+            document.getElementById("loader").className = "hide";
+          }).catch((error) => {
+            console.error(error);
+          });
+    }else{
+        alert('User does not have permission to access the object');
+        document.getElementById("loader").className = "hide"; 
+      }
+  }
+  function imageUpload2(e){
+    var error = document.getElementById('getError').value;
+    var ids =  e.target.getAttribute("data-id");    
+    document.getElementById("loader").className = "";
+    const i_email = loginEmail.value;
+    const i_password = loginPassword.value;
+    const auth = firebase.auth();
+    const encrypt_passw = calcMD5(i_password);    
+    const encrypt_64 = Base64.encode(encrypt_passw);
+    // Sign In
+    const returnPromise = auth.signInWithEmailAndPassword(i_email, encrypt_64);
+    returnPromise.catch( e =>  document.getElementById('getError').value = e.message);  
+    const file = e.target.files[0]
+    const name = (+new Date()) + '-' + file.name;    
+    const metadata = {
+      contentType: file.type
+    };
+    const task = ref.child(name).put(file, metadata);
+    task.then((snapshot) => {
+      const url = snapshot.downloadURL;
+      console.log(url);
+     document.querySelector('#'+ids+'').value = url;
+      document.getElementById("loader").className = "hide";
+    }).catch((error) => {
+      console.error(error);
+    });    
+  }
+</script>

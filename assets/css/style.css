@@ -1,0 +1,192 @@
+@font-face {
+font-family: 'chaletparisnineteensixty';
+src: url('../fonts/chalet_paris_nineteen_sixty-webfont.woff2') format('woff2'),
+   url('../fonts/chalet_paris_nineteen_sixty-webfont.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+}
+@font-face {
+font-family: 'chaletnewyorknineteensixty';
+src: url('../fonts/chalet_new_york_nineteen_sixty-webfont.woff2') format('woff2'),
+   url('../fonts/chalet_new_york_nineteen_sixty-webfont.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+}
+
+@font-face {
+font-family: 'chaletlondonnineteensixty';
+src: url('../fonts/chalet_london_nineteen_sixty-webfont.woff2') format('woff2'),
+	 url('../fonts/chalet_london_nineteen_sixty-webfont.woff') format('woff');
+font-weight: normal;
+font-style: normal;
+}
+img{
+max-width:100%;
+}
+body{
+font-family: 'chaletparisnineteensixty';
+}
+/*header start here*/
+#main-header{
+background: #000000; 
+background: -moz-linear-gradient(top,  #000000 0%, #2f2f2f 99%); 
+background: -webkit-linear-gradient(top,  #000000 0%,#2f2f2f 99%); 
+background: linear-gradient(to bottom,  #000000 0%,#2f2f2f 99%);
+padding:72px 0 35px 0;
+}
+#main-header .logo{
+display:block;
+margin-bottom:35px;
+}
+#main-header h1{
+font-family: 'chaletparisnineteensixty';
+color:#fff;
+font-size:27px;
+position: absolute;
+top: 55%;
+    right: -25px;
+}
+.heading-holder{
+	position: relative;
+}
+/*flex-section start here*/
+.flex-section{
+background: #f5d36d; 
+background: -moz-linear-gradient(top,  #f5d36d 0%, #fde8aa 99%); 
+background: -webkit-linear-gradient(top,  #f5d36d 0%,#fde8aa 99%); 
+background: linear-gradient(to bottom,  #f5d36d 0%,#fde8aa 99%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f5d36d', endColorstr='#fde8aa',GradientType=0 ); /* IE6-9 */
+border-top:2px solid #fff;
+}
+.flex-section .flex-item{
+margin-top:-30px;
+-moz-box-shadow: 3px 2px 16px #000000;
+-webkit-box-shadow: 3px 2px 16px #000000;
+box-shadow: 3px 2px 16px #000000;
+}
+.flex-section .row .col-sm-4{
+padding:0 8px 0 8px !important;
+}
+.listing{
+margin:25px 0 15px 0;
+padding-left:100px;
+}
+.listing li{
+font-family: 'chaletlondonnineteensixty';
+font-size:28px;
+color:#000;
+float:left;
+margin-right:42px;
+}
+.listing li:first-child{
+list-style-type:none;
+}
+/*btn android section start here*/
+.btns-android{
+background: #a1c3e0; 
+background: -moz-linear-gradient(top,  #a1c3e0 0%, #bacfe0 99%); 
+background: -webkit-linear-gradient(top,  #a1c3e0 0%,#bacfe0 99%); 
+background: linear-gradient(to bottom,  #a1c3e0 0%,#bacfe0 99%); 
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#a1c3e0', endColorstr='#bacfe0',GradientType=0 );
+border-top:2px solid #fff;
+padding:20px 0;
+}
+.btns-android h4{
+margin-bottom:0;
+font-family: 'chaletlondonnineteensixty';
+color:#000;
+font-size:17px;
+}
+.btns-android a{
+display:inline-block;
+margin-bottom:10px;
+}
+/*footer strat here*/
+#main-footer{
+background: #edeceb; /* Old browsers */
+background: -moz-linear-gradient(top,  #edeceb 0%, #ffffff 47%, #edeceb 100%); 
+background: -webkit-linear-gradient(top,  #edeceb 0%,#ffffff 47%,#edeceb 100%);
+background: linear-gradient(to bottom,  #edeceb 0%,#ffffff 47%,#edeceb 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#edeceb', endColorstr='#edeceb',GradientType=0 ); /* IE6-9 */
+padding:20px 0 0 0;
+}
+.footer-col{
+	padding-bottom: 15px;
+	padding-top: 15px;
+}
+.footer-col h5{
+font-family: 'chaletnewyorknineteensixty';
+font-size:16px;
+color:#000;
+line-height:20px;
+}
+.footer-col ul{
+margin:0;
+padding-left:15px;
+}
+.footer-col ul li, .footer-col p{
+font-size:15px;
+color:#000;
+font-family: 'chaletlondonnineteensixty';
+}
+.copy-rt{
+font-family: 'chaletlondonnineteensixty';
+}
+.site-links a{
+display:inline-block;
+color:#000;
+}
+.site-links{
+text-align:right;
+}
+.feedback-section{
+    margin: 20px;
+}
+.feedback-flex-item{
+    box-shadow: 5px 2px 13px 2px #777;
+    padding: 10px 30px;
+    background: #fff;
+    margin: 35px;
+	font-family: 'chaletlondonnineteensixty';
+}
+/*media css*/
+@media screen and (max-width:1199px){
+	.container{width:98%;}
+	#main-header h1{
+		font-size: 20px;
+		right: 10%;	
+	}
+}
+
+@media screen and (max-width:991px){
+	#main-header h1{
+		right: 0%;
+	}
+	.listing li{font-size:16px; margin-right: 26px;}
+	.footer-col h5{font-size:14px;}
+	.footer-col ul li, .footer-col p{font-size:13px;}
+	.listing{padding-left:25px;}
+}
+@media screen and (max-width:767px){
+	.listing li{float:none; text-align:left;}
+	.site-links{text-align:left;}
+	#main-header h1{
+		font-size:13px;
+		right: 30px;
+		top: 60%;
+	}
+	.btns-android h4{font-size:17px;}
+	.flex-section .flex-item{box-shadow:none; margin:0 0 20px 0;}
+	.flex-section .flex-item{text-align:center;}
+	.heading-holder h1{
+		width: 240px;
+	}
+	.video-holder iframe{
+		width: 100%;
+	}
+}
+@media screen and (max-width:375px){
+	#main-header h1{
+		right: 12px;
+	}
+}
